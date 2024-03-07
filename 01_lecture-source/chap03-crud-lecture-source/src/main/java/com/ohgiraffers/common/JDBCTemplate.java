@@ -1,21 +1,12 @@
-package com.ohgiraffers.section02.template;
+package com.ohgiraffers.common;
 
 import java.io.FileReader;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.Properties;
 
 public class JDBCTemplate {
 
-    /* 필기.
-     *   Connection 객체를 생성하는 것도 중복해서 계속 작성을 하기 때문에
-     *   static 메소드로 객체를 생성하거나 자원을 반납하는 template 을
-     *   만들어 지속적인 재사용을 하도록 한다.
-     *  */
-
-    /* 필기. void 형이 아니니 return 이 필요한데 Connection 을 리턴을 하게 한다. */
     public static Connection getConnection() {
 
         Connection con = null;
@@ -41,16 +32,9 @@ public class JDBCTemplate {
         }
 
         return con;
-
     }
 
     public static void close(Connection con) {
-
-        /* 필기.
-         *   위에 getConnection() 으로 생성한 커넥션을
-         *   매개변수로 받아 닫아주는 역할을 한다.
-         *   자원 반납 시에는 null 체크여부, 이미 반납 된 자원이 아닌 지 확인을 해야 한다.
-         *  */
 
         try {
             if(con != null && !con.isClosed()) {
@@ -64,5 +48,32 @@ public class JDBCTemplate {
 
     }
 
+    public static void close(Statement stmt) {
+
+        try {
+            if(stmt != null && !stmt.isClosed()) {
+
+                stmt.close();
+
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    public static void close(ResultSet rset) {
+
+        try {
+            if(rset != null && !rset.isClosed()) {
+
+                rset.close();
+
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
 
 }

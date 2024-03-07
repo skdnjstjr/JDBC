@@ -1,7 +1,6 @@
 package com.ohgiraffers.section01.connection;
 
 import java.sql.Connection;
-import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
@@ -19,7 +18,7 @@ public class Application02 {
         try {
             Class.forName(driver);
 
-            con = DriverManager.getConnection(url,user,password);
+            con = DriverManager.getConnection(url, user, password);
 
             System.out.println("con = " + con);
 
@@ -38,7 +37,6 @@ public class Application02 {
                 }
 
             }
-
 
         }
 
